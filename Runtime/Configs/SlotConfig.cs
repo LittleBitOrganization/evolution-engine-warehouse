@@ -1,0 +1,15 @@
+﻿using System;
+using LittleBit.Modules.Description;
+using UnityEngine;
+
+namespace LittleBit.Modules.Warehouse.Configs
+{
+    [Serializable]
+    public class SlotConfig
+    {
+        [SerializeField] private ResourceConfigInterfaceContainer _resource;
+
+        public IResourceConfig ResourceConfig => _resource.Result;
+        public double Capacity;
+    }
+}
