@@ -39,9 +39,7 @@ namespace LittleBit.Modules.Warehouse
 
         public WarehouseDataController InitializeData()
         {
-            var warehouseData = _dataProcessor.GetData();
             InitializeSlots();
-            _dataProcessor.SetData(warehouseData);
             return this;
         }
         
