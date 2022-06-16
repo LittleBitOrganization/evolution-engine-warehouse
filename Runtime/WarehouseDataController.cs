@@ -60,9 +60,10 @@ namespace LittleBit.Modules.Warehouse
 
         public SlotDataController GetSlot(IResourceConfig resourceConfig)
         {
-            SlotDataController slotDataController;
             if (_slotDataControllers.ContainsKey(resourceConfig))
-                slotDataController = _slotDataControllers[resourceConfig];
+            {
+                return _slotDataControllers[resourceConfig];
+            }
 
             throw new KeyNotFoundException($"{resourceConfig.GetKey()}");
         }
