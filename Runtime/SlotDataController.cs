@@ -41,7 +41,7 @@ namespace LittleBit.Modules.Warehouse
             var warehouseData = _dataProcessor.GetData();
             var slot = GetSlot();
 
-            if(string.IsNullOrEmpty(slot.WarehouseItemData.GetKey()))
+            if (slot == null || string.IsNullOrEmpty(slot.WarehouseItemData.GetKey()))
             {
                 slot = new InternalSlotData(new InternalWarehouseItemData(KeyHolder.GetKey()), _config.Capacity);
                 warehouseData.Slots.Add(slot);
