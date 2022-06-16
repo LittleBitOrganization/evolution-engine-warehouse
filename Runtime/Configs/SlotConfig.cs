@@ -8,8 +8,8 @@ namespace LittleBit.Modules.Warehouse.Configs
     public class SlotConfig
     {
         [SerializeField] private ResourceConfigInterfaceContainer _resource;
-
+        [SerializeField] private double _capacity;
         public IResourceConfig ResourceConfig => _resource.Result;
-        public double Capacity;
+        public double Capacity => _capacity;
     }
 }
