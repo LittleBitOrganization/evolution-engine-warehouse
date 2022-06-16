@@ -26,7 +26,7 @@ namespace LittleBit.Modules.Warehouse
         public WarehouseDataController(DataProcessorsFactory<InternalWarehouseData> dataProcessorsFactory, WarehouseConfig config)
         {
             _config = config;
-            _dataProcessor = dataProcessorsFactory.Create<DataProcessorCustom<InternalWarehouseData>>(_config.GetKey());
+            _dataProcessor = dataProcessorsFactory.Create<DataProcessor<InternalWarehouseData>>(_config.GetKey());
             _slotDataControllers = new Dictionary<IResourceConfig, SlotDataController>();
             
             Try = new TrySlotOperation(this);
