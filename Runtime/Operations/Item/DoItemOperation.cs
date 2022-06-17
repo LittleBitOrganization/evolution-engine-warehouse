@@ -18,9 +18,12 @@ namespace LittleBit.Modules.Warehouse.Operations.Item
 
         public bool Substract(IResourceConfig resourceConfig, double value)
         {
-            var slot = _slotProvider.GetSlot();
-            if (slot == null) return false;
-            return slot.Value - value >= 0;
+            _slotProvider.SlotOperation(slot =>
+            {
+                slot.Value -= value;
+                return true;
+            });
+            return true;
         }
     }
 }
