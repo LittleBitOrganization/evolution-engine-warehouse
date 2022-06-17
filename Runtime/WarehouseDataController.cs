@@ -21,12 +21,12 @@ namespace LittleBit.Modules.Warehouse
         
         private readonly WarehouseConfig _config;
         private Dictionary<IResourceConfig, SlotDataController> _slotDataControllers;
-        private IDataProcessor<InternalWarehouseData> _dataProcessor;
+        private IDataProcessor<WarehouseData> _dataProcessor;
 
-        public WarehouseDataController(DataProcessorsFactory<InternalWarehouseData> dataProcessorsFactory, WarehouseConfig config)
+        public WarehouseDataController(DataProcessorsFactory<WarehouseData> dataProcessorsFactory, WarehouseConfig config)
         {
             _config = config;
-            _dataProcessor = dataProcessorsFactory.Create<DataProcessor<InternalWarehouseData>>(_config.GetKey());
+            _dataProcessor = dataProcessorsFactory.Create<DataProcessor<WarehouseData>>(_config.GetKey());
             _slotDataControllers = new Dictionary<IResourceConfig, SlotDataController>();
             
             Try = new TrySlotOperation(this);

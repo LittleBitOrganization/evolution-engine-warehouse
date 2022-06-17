@@ -17,7 +17,7 @@ namespace LittleBit.Modules.Warehouse
         public ISlotObservable SlotObservable => new SlotObservable(GetSlot(), this);
         
         private readonly SlotConfig _config;
-        private readonly IDataProcessor<InternalWarehouseData> _dataProcessor;
+        private readonly IDataProcessor<WarehouseData> _dataProcessor;
         
         public ISlotOperation Try { get; }
         public ISlotOperation Do { get; }
@@ -26,7 +26,7 @@ namespace LittleBit.Modules.Warehouse
 
         public IKeyHolder KeyHolder => _config.ResourceConfig;
         
-        public SlotDataController(SlotConfig config, IDataProcessor<InternalWarehouseData> dataProcessor)
+        public SlotDataController(SlotConfig config, IDataProcessor<WarehouseData> dataProcessor)
         {
             _config = config;
             _dataProcessor = dataProcessor;
@@ -43,14 +43,14 @@ namespace LittleBit.Modules.Warehouse
 
             if (slot == null || string.IsNullOrEmpty(slot.WarehouseItemData.GetKey()))
             {
-                slot = new InternalSlotData(new InternalWarehouseItemData(KeyHolder.GetKey()), _config.Capacity);
+                slot = new SlotData(new WarehouseItemData(KeyHolder.GetKey()), _config.Capacity);
                 warehouseData.Slots.Add(slot);
                 _dataProcessor.SetData(warehouseData);
             }
         }
 
         
-        public bool SlotOperation(Func<InternalSlotData, bool> func)
+        public bool SlotOperation(Func<SlotData, bool> func)
         {
             if (func == null)
                 throw new Exception("func cannot be null");
@@ -72,7 +72,7 @@ namespace LittleBit.Modules.Warehouse
             return result;
         }
 
-        public InternalSlotData GetSlot()
+        public SlotData GetSlot()
         {
             var warehouseData = _dataProcessor.GetData();
             var warehouseSlots = warehouseData.Slots;

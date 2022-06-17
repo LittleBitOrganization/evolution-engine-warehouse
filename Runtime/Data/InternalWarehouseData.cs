@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using LittleBit.Modules.Warehouse.Inerfaces;
 
 namespace LittleBit.Modules.Warehouse.Data
 {
     [Serializable]
-    internal class InternalWarehouseData : CoreModule.Data
+    public class WarehouseData : CoreModule.Data
     {
-        public List<InternalSlotData> Slots;
-        public InternalWarehouseData() => Slots = new List<InternalSlotData>();
+        public List<SlotData> Slots;
+        public WarehouseData() => Slots = new List<SlotData>();
+
     }
 }

@@ -20,7 +20,7 @@ namespace LittleBit.Modules.Warehouse
         
         public Warehouse(ICreator creator, WarehouseConfig config)
         {
-            var factory = new DataProcessorsFactory<InternalWarehouseData>(creator);
+            var factory = new DataProcessorsFactory<WarehouseData>(creator);
             _warehouseDataController = new WarehouseDataController(factory, config).InitializeData();
             Try = new TryWarehouseOperation(_warehouseDataController.Try);
             Do = new DoWarehouseOperation(_warehouseDataController.Do);

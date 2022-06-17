@@ -1,5 +1,4 @@
 ﻿using LittleBit.Modules.CoreModule;
-using UnityEngine;
 
 namespace LittleBit.Modules.Warehouse.DataOperation
 {
@@ -16,20 +15,12 @@ namespace LittleBit.Modules.Warehouse.DataOperation
 
         public void SetData(T data)
         {
-            var serialize = Serialize(data);
-            var jsonData = new JsonData(serialize);
-            
-            _dataStorageService.SetData(_key, jsonData);
+            _dataStorageService.SetData(_key, data);
         }
         
         public T GetData()
         {
-            var jsonData = _dataStorageService.GetData<JsonData>(_key);
-            return Deserialize(jsonData.Data);
+            return _dataStorageService.GetData<T>(_key);
         }
-
-        private string Serialize(T data) => JsonUtility.ToJson(data);
-
-        private T Deserialize(string json) => JsonUtility.FromJson<T>(json);
     }
 }

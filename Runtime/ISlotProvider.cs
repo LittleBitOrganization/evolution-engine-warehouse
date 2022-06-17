@@ -6,8 +6,8 @@ namespace LittleBit.Modules.Warehouse
 {
     internal interface ISlotProvider
     {
-        public InternalSlotData GetSlot();
-        public bool SlotOperation(Func<InternalSlotData, bool> func);
+        public SlotData GetSlot();
+        public bool SlotOperation(Func<SlotData, bool> func);
         public CanItemOperation Can { get; }
     }
 }
