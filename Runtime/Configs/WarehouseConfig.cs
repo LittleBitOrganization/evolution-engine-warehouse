@@ -15,6 +15,7 @@ namespace LittleBit.Modules.Warehouse.Configs
         [AllowNesting]
         [SerializeField] private string _key;
         
+        [SerializeField, DisableIf(nameof(Boolean.TrueString)), AllowNesting]
         private string _prefixKey;
 
         [SerializeField, DisableIf(nameof(Boolean.TrueString)), AllowNesting]
