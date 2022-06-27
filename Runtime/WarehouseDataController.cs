@@ -40,7 +40,7 @@ namespace LittleBit.Modules.Warehouse
 
         internal IReadOnlyList<IResourceConfig> GetAllResourceConfigsInSlots()
         {
-            return (IReadOnlyList<IResourceConfig>) _slotDataControllers.Select((pair => pair.Key));
+            return _slotDataControllers.Select((pair => pair.Key)).ToList();
         }
 
         public string Serialize() =>
