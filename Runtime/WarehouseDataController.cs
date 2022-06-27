@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using LittleBit.Modules.Description;
 using LittleBit.Modules.Warehouse.Configs;
 using LittleBit.Modules.Warehouse.Data;
@@ -23,6 +24,9 @@ namespace LittleBit.Modules.Warehouse
         private Dictionary<IResourceConfig, SlotDataController> _slotDataControllers;
         private IDataProcessor<WarehouseData> _dataProcessor;
 
+        
+       
+        
         public WarehouseDataController(DataProcessorsFactory<WarehouseData> dataProcessorsFactory, WarehouseConfig config)
         {
             _config = config;
@@ -32,6 +36,11 @@ namespace LittleBit.Modules.Warehouse
             Try = new TrySlotOperation(this);
             Do = new DoSlotOperation(this);
             Can = new CanSlotOperation(this);
+        }
+
+        internal IReadOnlyList<IResourceConfig> GetAllResourceConfigsInSlots()
+        {
+            return (IReadOnlyList<IResourceConfig>) _slotDataControllers.Select((pair => pair.Key));
         }
 
         public string Serialize() =>
