@@ -1,4 +1,5 @@
-﻿using LittleBit.Modules.Description;
+﻿using System.Collections.Generic;
+using LittleBit.Modules.Description;
 using LittleBit.Modules.Warehouse.Configs;
 using LittleBit.Modules.Warehouse.Data;
 using LittleBit.Modules.Warehouse.DataOperation;
@@ -16,6 +17,11 @@ namespace LittleBit.Modules.Warehouse
         public ISlotOperation Do { get; }
         public ISlotOperation Can { get; }
 
+        public IReadOnlyList<IResourceConfig> GetAllResourceConfigsInSlots()
+        {
+            return _warehouseDataController.GetAllResourceConfigsInSlots();
+        }
+
         private readonly WarehouseDataController _warehouseDataController;
         
         public Warehouse(ICreator creator, WarehouseConfig config)
@@ -27,4 +33,6 @@ namespace LittleBit.Modules.Warehouse
             Can = new CanWarehouseOperation(_warehouseDataController.Can);
         }
     }
+    
+   
 }
