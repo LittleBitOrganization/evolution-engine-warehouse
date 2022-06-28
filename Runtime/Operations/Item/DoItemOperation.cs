@@ -1,4 +1,6 @@
-﻿using LittleBit.Modules.Description;
+﻿using System.Collections.Generic;
+using System.Linq;
+using LittleBit.Modules.Description;
 
 namespace LittleBit.Modules.Warehouse.Operations.Item
 {
@@ -15,6 +17,9 @@ namespace LittleBit.Modules.Warehouse.Operations.Item
             });
             return true;
         }
+
+        public bool AddMany(Dictionary<IResourceConfig, double> dict) =>
+            dict.Select(pair => Add(pair.Key, pair.Value)).All(success => success);
 
         public bool Substract(IResourceConfig resourceConfig, double value)
         {
