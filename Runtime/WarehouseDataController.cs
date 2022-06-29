@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using LittleBit.Modules.CoreModule;
 using LittleBit.Modules.Description;
 using LittleBit.Modules.Warehouse.Configs;
 using LittleBit.Modules.Warehouse.Data;
@@ -15,6 +15,8 @@ namespace LittleBit.Modules.Warehouse
     internal class WarehouseDataController : ISerializable, ISlotControllerProvider
     {
         public ISlotObservable this[IResourceConfig index] => _slotDataControllers[index].SlotObservable;
+
+        public ITrackable GetTrackable(IResourceConfig config) => _slotDataControllers[config];
         
         public ISlotOperation Try { get; }
         public ISlotOperation Do { get; }
@@ -24,9 +26,6 @@ namespace LittleBit.Modules.Warehouse
         private Dictionary<IResourceConfig, SlotDataController> _slotDataControllers;
         private IDataProcessor<WarehouseData> _dataProcessor;
 
-        
-       
-        
         public WarehouseDataController(DataProcessorsFactory<WarehouseData> dataProcessorsFactory, WarehouseConfig config)
         {
             _config = config;
@@ -36,11 +35,6 @@ namespace LittleBit.Modules.Warehouse
             Try = new TrySlotOperation(this);
             Do = new DoSlotOperation(this);
             Can = new CanSlotOperation(this);
-        }
-
-        internal IReadOnlyList<IResourceConfig> GetAllResourceConfigsInSlots()
-        {
-            return _slotDataControllers.Select((pair => pair.Key)).ToList();
         }
 
         public string Serialize() =>

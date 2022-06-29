@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using LittleBit.Modules.CoreModule;
 using LittleBit.Modules.Description;
 using LittleBit.Modules.Warehouse.Configs;
 using LittleBit.Modules.Warehouse.Data;
@@ -11,7 +12,7 @@ using LittleBit.Modules.Warehouse.Operations.Item;
 
 namespace LittleBit.Modules.Warehouse
 {
-    internal class SlotDataController : IDataObservable, ISlotProvider
+    internal class SlotDataController : IDataObservable, ISlotProvider, ITrackable
     {
         public event Action<IReadOnlySlotData> SlotChange;
         public ISlotObservable SlotObservable => new SlotObservable(GetSlot(), this);
@@ -22,6 +23,9 @@ namespace LittleBit.Modules.Warehouse
         public ISlotOperation Try { get; }
         public ISlotOperation Do { get; }
         public CanItemOperation Can { get; }
+
+        public double Value => SlotObservable.SlotData.Value;
+        public event Action<double> OnValueChange;
         
 
         public IKeyHolder KeyHolder => _config.ResourceConfig;
@@ -67,6 +71,7 @@ namespace LittleBit.Modules.Warehouse
             {
                 _dataProcessor.SetData(warehouseData);
                 SlotChange?.Invoke(slot);
+                OnValueChange?.Invoke(slot.Value);
             }
             
             return result;
@@ -78,5 +83,6 @@ namespace LittleBit.Modules.Warehouse
             var warehouseSlots = warehouseData.Slots;
             return warehouseSlots.FirstOrDefault(s => s.GetKey() == KeyHolder.GetKey());
         }
+        
     }
 }

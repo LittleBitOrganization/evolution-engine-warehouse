@@ -1,4 +1,5 @@
-﻿using LittleBit.Modules.Warehouse.Data.Interfaces;
+﻿using System;
+using LittleBit.Modules.Warehouse.Data.Interfaces;
 using LittleBit.Modules.Warehouse.Inerfaces;
 
 namespace LittleBit.Modules.Warehouse
@@ -7,7 +8,7 @@ namespace LittleBit.Modules.Warehouse
     {
         public IReadOnlySlotData SlotData { get; }
         public IDataObservable Observable { get; }
-        
+
         public SlotObservable(IReadOnlySlotData slotData, IDataObservable dataObservable)
         {
             SlotData = slotData;

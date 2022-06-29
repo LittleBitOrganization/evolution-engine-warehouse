@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using LittleBit.Modules.CoreModule;
 using LittleBit.Modules.Description;
 using LittleBit.Modules.Warehouse.Configs;
 using LittleBit.Modules.Warehouse.Data;
@@ -12,18 +12,15 @@ namespace LittleBit.Modules.Warehouse
     public class Warehouse
     {
         public ISlotObservable this[IResourceConfig index] => _warehouseDataController[index];
-        
+        public ITrackable GetTrackable(IResourceConfig resourceConfig) =>
+            _warehouseDataController.GetTrackable(resourceConfig);
+
         public ISlotOperation Try { get; }
         public ISlotOperation Do { get; }
         public ISlotOperation Can { get; }
 
-        public IReadOnlyList<IResourceConfig> GetAllResourceConfigsInSlots()
-        {
-            return _warehouseDataController.GetAllResourceConfigsInSlots();
-        }
-
         private readonly WarehouseDataController _warehouseDataController;
-        
+
         public Warehouse(ICreator creator, WarehouseConfig config)
         {
             var factory = new DataProcessorsFactory<WarehouseData>(creator);
@@ -33,6 +30,4 @@ namespace LittleBit.Modules.Warehouse
             Can = new CanWarehouseOperation(_warehouseDataController.Can);
         }
     }
-    
-   
 }
