@@ -1,4 +1,5 @@
-﻿using LittleBit.Modules.CoreModule;
+﻿using System.Collections.Generic;
+using LittleBit.Modules.CoreModule;
 using LittleBit.Modules.Description;
 using LittleBit.Modules.Warehouse.Configs;
 using LittleBit.Modules.Warehouse.Data;
@@ -26,10 +27,12 @@ namespace LittleBit.Modules.Warehouse
             Do = new DoWarehouseOperation(_warehouseDataController.Do);
             Can = new CanWarehouseOperation(_warehouseDataController.Can);
         }
-        
+
+        public IReadOnlyList<IResourceConfig> GetAllResourceConfigsInSlots() =>
+            _warehouseDataController.GetAllResourceConfigsInSlots();
+
+
         public ITrackable GetSlotTrackable(IResourceConfig resourceConfig) =>
             _warehouseDataController.GetSlotTrackable(resourceConfig);
     }
-    
-    
 }

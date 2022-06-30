@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using LittleBit.Modules.CoreModule;
 using LittleBit.Modules.Description;
 using LittleBit.Modules.Warehouse.Configs;
@@ -17,25 +18,30 @@ namespace LittleBit.Modules.Warehouse
         public ISlotObservable this[IResourceConfig index] => _slotDataControllers[index].SlotObservable;
 
         public ITrackable GetSlotTrackable(IResourceConfig config) => _slotDataControllers[config];
-        
+
         public ISlotOperation Try { get; }
         public ISlotOperation Do { get; }
         public ISlotOperation Can { get; }
-        
+
         private readonly WarehouseConfig _config;
         private Dictionary<IResourceConfig, SlotDataController> _slotDataControllers;
         private IDataProcessor<WarehouseData> _dataProcessor;
 
-        public WarehouseDataController(DataProcessorsFactory<WarehouseData> dataProcessorsFactory, WarehouseConfig config)
+        public WarehouseDataController(DataProcessorsFactory<WarehouseData> dataProcessorsFactory,
+            WarehouseConfig config)
         {
             _config = config;
             _dataProcessor = dataProcessorsFactory.Create<DataProcessor<WarehouseData>>(_config.GetKey());
             _slotDataControllers = new Dictionary<IResourceConfig, SlotDataController>();
-            
+
             Try = new TrySlotOperation(this);
             Do = new DoSlotOperation(this);
             Can = new CanSlotOperation(this);
         }
+
+        internal IReadOnlyList<IResourceConfig> GetAllResourceConfigsInSlots()
+            => _slotDataControllers.Select(pair => pair.Key).ToList();
+
 
         public string Serialize() =>
             JsonUtility.ToJson(_dataProcessor.GetData());
@@ -45,7 +51,7 @@ namespace LittleBit.Modules.Warehouse
             InitializeSlots();
             return this;
         }
-        
+
         private void InitializeSlots()
         {
             foreach (var slotConfig in _config.SlotConfigs)
@@ -54,7 +60,7 @@ namespace LittleBit.Modules.Warehouse
 
                 if (_slotDataControllers.ContainsKey(slotConfig.ResourceConfig))
                     throw new Exception($"Key {slotConfig.ResourceConfig.GetKey()} already exist");
-                
+
                 _slotDataControllers.Add(slotConfig.ResourceConfig, slotDataController);
             }
         }
@@ -70,18 +76,3 @@ namespace LittleBit.Modules.Warehouse
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
