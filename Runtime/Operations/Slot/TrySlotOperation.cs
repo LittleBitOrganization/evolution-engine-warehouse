@@ -18,6 +18,6 @@ namespace LittleBit.Modules.Warehouse.Operations.Slot
             => dict.Select(pair => Add(pair.Key, pair.Value)).All(success => success);
 
         public bool Substract(IResourceConfig resourceConfig, double value) =>
-            SlotControllerProvider.GetSlot(resourceConfig).Try.Add(resourceConfig, value);
+            SlotControllerProvider.GetSlot(resourceConfig).Try.Substract(resourceConfig, value);
     }
 }
