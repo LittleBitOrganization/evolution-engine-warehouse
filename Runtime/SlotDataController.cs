@@ -18,6 +18,7 @@ namespace LittleBit.Modules.Warehouse
         public ISlotObservable SlotObservable => new SlotObservable(GetSlot(), this);
         
         private readonly SlotConfig _config;
+        
         private readonly IDataProcessor<WarehouseData> _dataProcessor;
         
         public ISlotOperation Try { get; }

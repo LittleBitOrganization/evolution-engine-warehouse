@@ -12,9 +12,6 @@ namespace LittleBit.Modules.Warehouse
     public class Warehouse
     {
         public ISlotObservable this[IResourceConfig index] => _warehouseDataController[index];
-        public ITrackable GetTrackable(IResourceConfig resourceConfig) =>
-            _warehouseDataController.GetTrackable(resourceConfig);
-
         public ISlotOperation Try { get; }
         public ISlotOperation Do { get; }
         public ISlotOperation Can { get; }
@@ -29,5 +26,10 @@ namespace LittleBit.Modules.Warehouse
             Do = new DoWarehouseOperation(_warehouseDataController.Do);
             Can = new CanWarehouseOperation(_warehouseDataController.Can);
         }
+        
+        public ITrackable GetSlotTrackable(IResourceConfig resourceConfig) =>
+            _warehouseDataController.GetSlotTrackable(resourceConfig);
     }
+    
+    
 }
