@@ -22,6 +22,13 @@ namespace LittleBit.Modules.Warehouse.Configs
         private string _fullKey;
         
         public string Key => GetKey();
+
+        public WarehouseConfig(string key, List<SlotConfig> slotConfigs)
+        {
+            SlotConfigs = slotConfigs;
+            _key = key;
+        }
+        
         
         public void InitPrefixKey(string prefixKey)
         {
