@@ -41,8 +41,7 @@ namespace LittleBit.Modules.Warehouse
 
         internal IReadOnlyList<IResourceConfig> GetAllResourceConfigsInSlots()
             => _slotDataControllers.Select(pair => pair.Key).ToList();
-
-
+        
         public string Serialize() =>
             JsonUtility.ToJson(_dataProcessor.GetData());
 
