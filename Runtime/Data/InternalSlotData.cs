@@ -33,10 +33,15 @@ namespace LittleBit.Modules.Warehouse.Data
         public string GetKey() => 
             WarehouseItemData.GetKey();   
         
-        public void Refresh()
+        public void RefreshFromScriptable()
         {
             _capacity = _config.Capacity;
             warehouseItemData = new WarehouseItemData(_config.ResourceConfig.GetKey());
+        }
+
+        public void SetCapacity(double capacity)
+        {
+            _capacity = capacity;
         }
     }
 }
