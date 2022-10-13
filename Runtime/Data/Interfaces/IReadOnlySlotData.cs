@@ -9,5 +9,6 @@ namespace LittleBit.Modules.Warehouse.Data.Interfaces
         double Capacity { get; }
         double EmptySpace { get; }
         IReadOnlyWarehouseItemData  WarehouseItemData { get; }
+        void Refresh();
     }
 }
