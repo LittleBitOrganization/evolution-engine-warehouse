@@ -22,7 +22,5 @@ namespace LittleBit.Modules.Warehouse.Configs
         }
         public IResourceConfig ResourceConfig => _resource;
         public double Capacity => isInfinity? Double.MaxValue : _capacity;
-        
-        
     }
 }

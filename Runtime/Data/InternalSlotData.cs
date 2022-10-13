@@ -1,4 +1,5 @@
 ﻿using System;
+using LittleBit.Modules.Warehouse.Configs;
 using LittleBit.Modules.Warehouse.Data.Interfaces;
 
 namespace LittleBit.Modules.Warehouse.Data
@@ -6,26 +7,36 @@ namespace LittleBit.Modules.Warehouse.Data
     [Serializable]
     public class SlotData : CoreModule.Data, IReadOnlySlotData
     {
-        public IReadOnlyWarehouseItemData WarehouseItemData => warehouseItemDataData;
+        public IReadOnlyWarehouseItemData WarehouseItemData => warehouseItemData;
         public double EmptySpace => _capacity - Value;
         public double Capacity => _capacity;
         public bool Full => EmptySpace < 0.00001d;
-
-        public WarehouseItemData warehouseItemDataData;
-        public double _capacity;
         
+        public WarehouseItemData warehouseItemData;
+        public double _capacity;
+        private SlotConfig _config;
+
         public double Value
         {
             get => WarehouseItemData.GetValue();
-            set => warehouseItemDataData.Value = value;
+            set => warehouseItemData.Value = value;
         }
         
-        public SlotData(WarehouseItemData warehouseItemDataData, double capacity)
+        public SlotData(SlotConfig config)
         {
-            this.warehouseItemDataData = warehouseItemDataData;
-            _capacity = capacity;
+            _config = config;
+            
+            warehouseItemData = new WarehouseItemData(_config.ResourceConfig.GetKey());
+            _capacity = _config.Capacity;
         }
 
-        public string GetKey() => WarehouseItemData.GetKey();
+        public string GetKey() => 
+            WarehouseItemData.GetKey();   
+        
+        public void Refresh()
+        {
+            _capacity = _config.Capacity;
+            warehouseItemData = new WarehouseItemData(_config.ResourceConfig.GetKey());
+        }
     }
 }
