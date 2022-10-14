@@ -19,15 +19,15 @@ namespace LittleBit.Modules.Warehouse.Data
 
         public double Value
         {
-            get => WarehouseItemData.GetValue();
-            set => warehouseItemData.Value = value;
+            get => warehouseItemDataData.GetValue();
+            set => warehouseItemDataData.Value = value;
         }
         
         public SlotData(SlotConfig config)
         {
             _config = config;
             
-            warehouseItemData = new WarehouseItemData(_config.ResourceConfig.GetKey());
+            warehouseItemDataData = new WarehouseItemData(_config.ResourceConfig.GetKey());
             _capacity = _config.Capacity;
         }
 
@@ -37,7 +37,7 @@ namespace LittleBit.Modules.Warehouse.Data
         public void RefreshFromScriptable()
         {
             _capacity = _config.Capacity;
-            warehouseItemData = new WarehouseItemData(_config.ResourceConfig.GetKey());
+            warehouseItemDataData = new WarehouseItemData(_config.ResourceConfig.GetKey());
         }
 
         public void SetCapacity(double capacity)
