@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Infrastructure.New
 {
     [CreateAssetMenu(fileName = "WarehouseConfig", menuName = "Configs/Productions/WarehouseConfig", order = 0)]
-    public class WarehouseConfigSO : ScriptableObject
+    public partial class WarehouseConfigSO : ScriptableObject
     {
         [SerializeField, AllowNesting] private WarehouseConfig _config;
         [SerializeField, AllowNesting] private ResourceConfig _input;
