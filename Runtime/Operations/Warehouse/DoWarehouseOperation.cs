@@ -1,11 +1,16 @@
 ﻿using System.Collections.Generic;
 using LittleBit.Modules.Description;
+using LittleBit.Modules.Warehouse.Operations.Slot;
 
 namespace LittleBit.Modules.Warehouse.Operations.Warehouse
 {
-    public class DoWarehouseOperation : WarehouseOperation, ISlotOperation
+    public class DoWarehouseOperation : WarehouseOperation, IDoSlotOperation
     {
-        public DoWarehouseOperation(ISlotOperation slotOperation) : base(slotOperation) { }
+        private readonly IDoSlotOperation _doSlotOperation;
+        public DoWarehouseOperation(IDoSlotOperation slotOperation) : base(slotOperation)
+        {
+            _slotOperation = slotOperation;
+        }
 
         public bool Add(IResourceConfig resourceConfig, double value)
         {
@@ -19,6 +24,12 @@ namespace LittleBit.Modules.Warehouse.Operations.Warehouse
         public bool Substract(IResourceConfig resourceConfig, double value)
         {
             _slotOperation.Substract(resourceConfig, value);
+            return true;
+        }
+
+        public bool SetCapacity(IResourceConfig resourceConfig, double value)
+        {
+            _doSlotOperation.SetCapacity(resourceConfig, value);
             return true;
         }
     }

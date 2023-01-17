@@ -9,6 +9,7 @@ using LittleBit.Modules.Warehouse.DataOperation;
 using LittleBit.Modules.Warehouse.Inerfaces;
 using LittleBit.Modules.Warehouse.Operations;
 using LittleBit.Modules.Warehouse.Operations.Item;
+using LittleBit.Modules.Warehouse.Operations.Slot;
 
 namespace LittleBit.Modules.Warehouse
 {
@@ -22,7 +23,7 @@ namespace LittleBit.Modules.Warehouse
         private readonly IDataProcessor<WarehouseData> _dataProcessor;
         
         public ISlotOperation Try { get; }
-        public ISlotOperation Do { get; }
+        public IDoSlotOperation Do { get; }
         public CanItemOperation Can { get; }
 
         public double Value => SlotObservable.SlotData.Value;

@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using LittleBit.Modules.Description;
+using LittleBit.Modules.Warehouse.Operations.Slot;
 
 namespace LittleBit.Modules.Warehouse.Operations.Item
 {
-    internal class DoItemOperation : ItemOperation, ISlotOperation
+    internal class DoItemOperation : ItemOperation, IDoSlotOperation
     {
         public DoItemOperation(ISlotProvider slotProvider) : base(slotProvider) { }
 
@@ -26,6 +27,16 @@ namespace LittleBit.Modules.Warehouse.Operations.Item
             _slotProvider.SlotOperation(slot =>
             {
                 slot.Value -= value;
+                return true;
+            });
+            return true;
+        }
+
+        public bool SetCapacity(IResourceConfig resourceConfig, double value)
+        {
+            _slotProvider.SlotOperation(slot =>
+            {
+                slot.SetCapacity(value);
                 return true;
             });
             return true;

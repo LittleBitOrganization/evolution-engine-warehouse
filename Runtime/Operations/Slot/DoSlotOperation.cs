@@ -5,7 +5,11 @@ using LittleBit.Modules.Warehouse.Inerfaces;
 
 namespace LittleBit.Modules.Warehouse.Operations.Slot
 {
-    internal class DoSlotOperation : SlotOperation, ISlotOperation
+    public interface IDoSlotOperation : ISlotOperation
+    {
+        bool SetCapacity(IResourceConfig resourceConfig, double value);
+    }
+    internal class DoSlotOperation : SlotOperation, IDoSlotOperation
     {
         public DoSlotOperation(ISlotControllerProvider controller) : base(controller)
         {
@@ -23,6 +27,12 @@ namespace LittleBit.Modules.Warehouse.Operations.Slot
         public bool Substract(IResourceConfig resourceConfig, double value)
         {
             SlotControllerProvider.GetSlot(resourceConfig).Do.Substract(resourceConfig, value);
+            return true;
+        }
+
+        public bool SetCapacity(IResourceConfig resourceConfig, double value)
+        {
+            SlotControllerProvider.GetSlot(resourceConfig).Do.SetCapacity(resourceConfig, value);
             return true;
         }
     }

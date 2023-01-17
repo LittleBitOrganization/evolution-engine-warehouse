@@ -6,6 +6,7 @@ using LittleBit.Modules.Warehouse.Data;
 using LittleBit.Modules.Warehouse.DataOperation;
 using LittleBit.Modules.Warehouse.Inerfaces;
 using LittleBit.Modules.Warehouse.Operations;
+using LittleBit.Modules.Warehouse.Operations.Slot;
 using LittleBit.Modules.Warehouse.Operations.Warehouse;
 
 namespace LittleBit.Modules.Warehouse
@@ -14,7 +15,7 @@ namespace LittleBit.Modules.Warehouse
     {
         public ISlotObservable this[IResourceConfig index] => _warehouseDataController[index];
         public ISlotOperation Try { get; }
-        public ISlotOperation Do { get; }
+        public IDoSlotOperation Do { get; }
         public ISlotOperation Can { get; }
 
         private readonly WarehouseDataController _warehouseDataController;
