@@ -9,6 +9,7 @@ namespace LittleBit.Modules.Warehouse.Operations.Warehouse
         private readonly IDoSlotOperation _doSlotOperation;
         public DoWarehouseOperation(IDoSlotOperation slotOperation) : base(slotOperation)
         {
+            _doSlotOperation = slotOperation;
             _slotOperation = slotOperation;
         }
 
