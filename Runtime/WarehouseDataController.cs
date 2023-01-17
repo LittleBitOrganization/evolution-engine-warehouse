@@ -21,7 +21,7 @@ namespace LittleBit.Modules.Warehouse
         public ITrackable GetSlotTrackable(IResourceConfig config) => _slotDataControllers[config];
 
         public ISlotOperation Try { get; }
-        public ISlotOperation Do { get; }
+        public IDoSlotOperation Do { get; }
         public ISlotOperation Can { get; }
 
         private readonly WarehouseConfig _config;
