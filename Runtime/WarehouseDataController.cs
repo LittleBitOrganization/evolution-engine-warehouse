@@ -67,9 +67,8 @@ namespace LittleBit.Modules.Warehouse
             }
             catch (Exception e)
             {
-                Debug.Log(e);
-                Debug.Log($"Error in {_config.Key}");
-                throw;
+                Debug.LogError(e);
+                throw new Exception($"Error in {_config.Key}");
             }
             
         }
