@@ -53,15 +53,25 @@ namespace LittleBit.Modules.Warehouse
 
         private void InitializeSlots()
         {
-            foreach (var slotConfig in _config.SlotConfigs)
+            try
             {
-                var slotDataController = new SlotDataController(slotConfig, _dataProcessor);
+                foreach (var slotConfig in _config.SlotConfigs)
+                {
+                    var slotDataController = new SlotDataController(slotConfig, _dataProcessor);
 
-                if (_slotDataControllers.ContainsKey(slotConfig.ResourceConfig))
-                    throw new Exception($"Key {slotConfig.ResourceConfig.GetKey()} already exist");
+                    if (_slotDataControllers.ContainsKey(slotConfig.ResourceConfig))
+                        throw new Exception($"Key {slotConfig.ResourceConfig.GetKey()} already exist");
 
-                _slotDataControllers.Add(slotConfig.ResourceConfig, slotDataController);
+                    _slotDataControllers.Add(slotConfig.ResourceConfig, slotDataController);
+                }
             }
+            catch (Exception e)
+            {
+                Debug.Log(e);
+                Debug.Log($"Error in {_config.Key}");
+                throw;
+            }
+            
         }
 
         public SlotDataController GetSlot(IResourceConfig resourceConfig)
